@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import Journal from "./pages/Journal";
 import Analytics from "./pages/Analytics";
 import Landing from "./pages/Landing";
+import Navbar from "./components/Navbar";
 
 import useLocalStorage from "./hooks/useLocalStorage";
 
@@ -26,9 +27,13 @@ export default function App() {
     <Router>
       <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-white">
 
+        {/* Navbar */}
+        <Navbar />
+
+        {/* Routes */}
         <Routes>
 
-          {/* Landing Page (NEW HOME) */}
+          {/* Landing */}
           <Route path="/" element={<Landing />} />
 
           {/* Dashboard */}
@@ -62,6 +67,7 @@ export default function App() {
           />
 
         </Routes>
+
       </div>
     </Router>
   );

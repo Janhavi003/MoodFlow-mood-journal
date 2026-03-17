@@ -3,115 +3,113 @@ import { motion } from "framer-motion";
 
 export default function Landing() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-gray-100 dark:from-gray-950 dark:to-gray-900 text-gray-900 dark:text-white">
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-100 dark:from-gray-950 dark:to-black text-gray-900 dark:text-white">
 
-      {/* Navbar */}
-      <nav className="flex justify-between items-center px-6 py-4 max-w-6xl mx-auto">
-        <h1 className="text-xl font-bold">MoodJournal</h1>
+      {/* HERO */}
+      <section className="text-center px-6 pt-24 pb-20 relative overflow-hidden">
 
-        <div className="flex gap-4">
-          <Link to="/journal" className="text-sm hover:underline">
-            Journal
-          </Link>
-          <Link
-            to="/journal"
-            className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
-          >
-            Get Started
-          </Link>
+        {/* Glow background */}
+        <div className="absolute inset-0 -z-10 flex justify-center">
+          <div className="w-[500px] h-[500px] bg-indigo-500 opacity-20 blur-3xl rounded-full"></div>
         </div>
-      </nav>
 
-      {/* Hero Section */}
-      <section className="text-center mt-20 px-6">
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-5xl font-bold leading-tight"
+          className="text-5xl md:text-6xl font-bold leading-tight"
         >
           Track Your Mood.
           <br />
-          Understand Yourself.
+          <span className="bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">
+            Understand Yourself.
+          </span>
         </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mt-6 text-gray-500 max-w-xl mx-auto"
-        >
-          MoodJournal helps you reflect daily, track emotional patterns,
-          and build better mental clarity.
-        </motion.p>
+        <p className="mt-6 text-lg text-gray-500 max-w-xl mx-auto">
+          A modern journaling experience to track emotions, reflect daily,
+          and discover meaningful insights about yourself.
+        </p>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          className="mt-8"
-        >
+        <div className="mt-8 flex justify-center gap-4">
           <Link
             to="/journal"
-            className="bg-indigo-600 text-white px-6 py-3 rounded-xl text-lg shadow-lg hover:bg-indigo-700"
+            className="px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg hover:scale-105 transition"
           >
             Start Journaling →
           </Link>
-        </motion.div>
+
+          <Link
+            to="/dashboard"
+            className="px-6 py-3 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+          >
+            View Dashboard
+          </Link>
+        </div>
       </section>
 
-      {/* Features */}
-      <section className="mt-24 max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8">
+      {/* FEATURES */}
+      <section className="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-6">
         {[
           {
             title: "Track Your Mood",
-            desc: "Log how you feel every day with simple emojis.",
+            desc: "Log how you feel every day with intuitive emoji-based tracking.",
           },
           {
             title: "Write & Reflect",
-            desc: "Capture your thoughts with a clean writing experience.",
+            desc: "Capture your thoughts with a clean and distraction-free editor.",
           },
           {
             title: "Visual Insights",
-            desc: "Understand patterns with charts and analytics.",
+            desc: "Understand patterns with powerful analytics and charts.",
           },
         ].map((feature, i) => (
           <motion.div
             key={i}
-            whileHover={{ scale: 1.05 }}
-            className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-md"
+            whileHover={{ scale: 1.04 }}
+            className="backdrop-blur bg-white/60 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-800 p-6 rounded-2xl shadow-lg"
           >
-            <h3 className="font-semibold text-lg">{feature.title}</h3>
+            <h3 className="text-lg font-semibold">{feature.title}</h3>
             <p className="text-gray-500 mt-2">{feature.desc}</p>
           </motion.div>
         ))}
       </section>
 
-      {/* App Preview */}
-      <section className="mt-24 px-6 text-center">
+      {/* PREVIEW SECTION */}
+      <section className="px-6 py-20 text-center">
         <h2 className="text-3xl font-bold">
           Simple. Clean. Powerful.
         </h2>
 
-        <div className="mt-10 bg-white dark:bg-gray-900 rounded-xl shadow-xl p-10 max-w-4xl mx-auto">
+        <p className="text-gray-500 mt-3">
+          Designed for clarity and focus.
+        </p>
+
+        <div className="mt-10 max-w-4xl mx-auto bg-white/60 dark:bg-gray-900/60 backdrop-blur border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-10">
           <p className="text-gray-500">
-            Beautiful journaling interface with mood tracking and insights.
+            Beautiful journaling interface with mood tracking, analytics,
+            and a distraction-free experience.
           </p>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="mt-24 text-center pb-20 px-6">
+      <section className="text-center py-20 px-6">
         <h2 className="text-3xl font-bold">
           Start your self-reflection journey today
         </h2>
 
         <Link
           to="/journal"
-          className="mt-6 inline-block bg-indigo-600 text-white px-8 py-3 rounded-xl text-lg hover:bg-indigo-700"
+          className="mt-6 inline-block px-8 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg hover:scale-105 transition"
         >
           Get Started Free
         </Link>
       </section>
+
+      {/* FOOTER */}
+      <footer className="text-center py-10 text-gray-400 text-sm">
+        © {new Date().getFullYear()} MoodJournal — Built for self-growth
+      </footer>
     </div>
   );
 }
