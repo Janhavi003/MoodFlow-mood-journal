@@ -4,6 +4,7 @@ import { useState } from "react";
 import Dashboard from "./pages/Dashboard";
 import Journal from "./pages/Journal";
 import Analytics from "./pages/Analytics";
+import Landing from "./pages/Landing";
 
 import useLocalStorage from "./hooks/useLocalStorage";
 
@@ -26,8 +27,13 @@ export default function App() {
       <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-white">
 
         <Routes>
+
+          {/* Landing Page (NEW HOME) */}
+          <Route path="/" element={<Landing />} />
+
+          {/* Dashboard */}
           <Route
-            path="/"
+            path="/dashboard"
             element={
               <Dashboard
                 mood={mood}
@@ -37,6 +43,7 @@ export default function App() {
             }
           />
 
+          {/* Journal */}
           <Route
             path="/journal"
             element={
@@ -48,12 +55,13 @@ export default function App() {
             }
           />
 
+          {/* Analytics */}
           <Route
             path="/analytics"
             element={<Analytics entries={entries} />}
           />
-        </Routes>
 
+        </Routes>
       </div>
     </Router>
   );
