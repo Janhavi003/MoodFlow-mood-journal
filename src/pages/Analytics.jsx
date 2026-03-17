@@ -1,19 +1,47 @@
-export default function Analytics({ entries }) {
-  return (
-    <div className="max-w-5xl mx-auto px-6 py-8">
-      <h1 className="text-3xl font-bold mb-4">Analytics</h1>
+import MoodChart from "../components/MoodChart";
+import CalendarHeatmap from "../components/CalendarHeatmap";
+import { generateInsights } from "../utils/insights";
+import { motion } from "framer-motion";
 
-      <p className="text-gray-500 dark:text-gray-400 mb-6">
-        View insights about your mood trends.
-      </p>
+export default function Analytics({ entries }) {
+  const insights = generateInsights(entries);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="max-w-6xl mx-auto px-4 sm:px-6 py-10"
+    >
+      <h1 className="text-3xl font-bold">Analytics</h1>
 
       {entries.length === 0 ? (
-        <p className="text-gray-500">No data available yet.</p>
-      ) : (
-        <div className="bg-white dark:bg-gray-900 rounded-xl shadow p-6">
-          <p>Total journal entries: {entries.length}</p>
+        <div className="card mt-10 p-10 text-center">
+          No data yet.
         </div>
+      ) : (
+        <>
+          <div className="grid md:grid-cols-2 gap-6 mt-8">
+            <div className="card p-6">
+              <h2 className="mb-4 font-semibold">Mood Trend</h2>
+              <MoodChart entries={entries} />
+            </div>
+
+            <div className="card p-6">
+              <h2 className="mb-4 font-semibold">Activity</h2>
+              <CalendarHeatmap entries={entries} />
+            </div>
+          </div>
+
+          <div className="card p-6 mt-6">
+            <h2 className="font-semibold mb-3">Insights</h2>
+            {insights.map((i, idx) => (
+              <p key={idx} className="text-gray-500">
+                • {i}
+              </p>
+            ))}
+          </div>
+        </>
       )}
-    </div>
+    </motion.div>
   );
 }

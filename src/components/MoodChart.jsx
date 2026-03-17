@@ -1,20 +1,42 @@
-import { PieChart, Pie, Cell, Tooltip } from "recharts";
-import { moods } from "../utils/moodUtils";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 export default function MoodChart({ entries }) {
-  const data = moods.map((m) => ({
-    name: m.label,
-    value: entries.filter((e) => e.mood === m.label).length,
+  const moodMap = {
+    Happy: 5,
+    Good: 4,
+    Neutral: 3,
+    Sad: 2,
+    Angry: 1,
+  };
+
+  const data = entries.map((e) => ({
+    date: new Date(e.date).toLocaleDateString(),
+    mood: moodMap[e.mood],
   }));
 
   return (
-    <PieChart width={400} height={300}>
-      <Pie data={data} dataKey="value" outerRadius={100}>
-        {data.map((entry, index) => (
-          <Cell key={index} />
-        ))}
-      </Pie>
-      <Tooltip />
-    </PieChart>
+    <div className="h-64">
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart data={data}>
+          <XAxis dataKey="date" hide />
+          <YAxis domain={[1, 5]} hide />
+          <Tooltip />
+          <Line
+            type="monotone"
+            dataKey="mood"
+            stroke="#6366f1"
+            strokeWidth={3}
+            dot={false}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
   );
 }

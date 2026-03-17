@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { motion } from "framer-motion";
 import MoodSelector from "../components/MoodSelector";
 import JournalEditor from "../components/JournalEditor";
 import EntryList from "../components/EntryList";
@@ -10,7 +11,6 @@ export default function Journal({ entries, addEntry, deleteEntry }) {
   const [filterMood, setFilterMood] = useState("");
   const [filterTag, setFilterTag] = useState("");
 
-  // Filter entries based on search, mood, and tags
   const filteredEntries = useMemo(() => {
     return entries.filter((entry) => {
       const matchesSearch = entry.text
@@ -30,71 +30,58 @@ export default function Journal({ entries, addEntry, deleteEntry }) {
   }, [entries, searchQuery, filterMood, filterTag]);
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-8">
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-5xl mx-auto px-4 sm:px-6 py-10"
+    >
+      <h1 className="text-3xl font-bold">Journal</h1>
+      <p className="text-gray-500">Track your thoughts and emotions.</p>
 
-      {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold">Journal</h1>
-        <p className="text-gray-500 dark:text-gray-400">
-          Track your thoughts and emotions.
-        </p>
-      </div>
-
-      {/* Mood Selection */}
-      <div className="mb-6">
-        <h2 className="font-semibold mb-2">
-          How are you feeling today?
-        </h2>
+      <div className="mt-6 card p-6">
         <MoodSelector
           selected={selectedMood}
           setSelected={setSelectedMood}
         />
-      </div>
 
-      {/* Journal Editor */}
-      <JournalEditor mood={selectedMood} addEntry={addEntry} />
+        <JournalEditor mood={selectedMood} addEntry={addEntry} />
+      </div>
 
       {/* Search + Filters */}
-      <div className="mt-8 space-y-4">
+      <div className="card p-4 mt-8 flex flex-col md:flex-row gap-4">
+        <SearchBar value={searchQuery} onChange={setSearchQuery} />
 
-        <SearchBar
-          value={searchQuery}
-          onChange={setSearchQuery}
+        <select
+          value={filterMood}
+          onChange={(e) => setFilterMood(e.target.value)}
+          className="input"
+        >
+          <option value="">All Moods</option>
+          <option value="Happy">Happy</option>
+          <option value="Good">Good</option>
+          <option value="Neutral">Neutral</option>
+          <option value="Sad">Sad</option>
+          <option value="Angry">Angry</option>
+        </select>
+
+        <input
+          type="text"
+          placeholder="Filter by tag"
+          value={filterTag}
+          onChange={(e) => setFilterTag(e.target.value)}
+          className="input"
         />
-
-        <div className="flex flex-wrap gap-4">
-
-          {/* Mood Filter */}
-          <select
-            value={filterMood}
-            onChange={(e) => setFilterMood(e.target.value)}
-            className="border rounded-lg px-3 py-2"
-          >
-            <option value="">All Moods</option>
-            <option value="Happy">Happy</option>
-            <option value="Good">Good</option>
-            <option value="Neutral">Neutral</option>
-            <option value="Sad">Sad</option>
-            <option value="Angry">Angry</option>
-          </select>
-
-          {/* Tag Filter */}
-          <input
-            type="text"
-            placeholder="Filter by tag"
-            value={filterTag}
-            onChange={(e) => setFilterTag(e.target.value)}
-            className="border rounded-lg px-3 py-2"
-          />
-        </div>
       </div>
 
-      {/* Entry Timeline */}
+      {/* Entries */}
       <div className="mt-8">
         {filteredEntries.length === 0 ? (
-          <p className="text-gray-500 text-center mt-10">
-            No entries found.
-          </p>
+          <div className="card p-10 text-center">
+            <p className="text-gray-500">
+              No entries yet. Start writing your first journal ✨
+            </p>
+          </div>
         ) : (
           <EntryList
             entries={filteredEntries}
@@ -102,6 +89,7 @@ export default function Journal({ entries, addEntry, deleteEntry }) {
           />
         )}
       </div>
-    </div>
+
+    </motion.div>
   );
 }

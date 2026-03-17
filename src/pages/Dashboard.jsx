@@ -1,27 +1,47 @@
-import MoodSelector from "../components/MoodSelector";
-import JournalEditor from "../components/JournalEditor";
-import EntryList from "../components/EntryList";
+import MoodChart from "../components/MoodChart";
+import CalendarHeatmap from "../components/CalendarHeatmap";
+import { generateInsights } from "../utils/insights";
+import { motion } from "framer-motion";
 
-export default function Dashboard({
-  mood,
-  setMood,
-  entries,
-  addEntry,
-  deleteEntry,
-}) {
+export default function Analytics({ entries }) {
+  const insights = generateInsights(entries);
+
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold">Mood Journal</h1>
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="max-w-6xl mx-auto px-4 sm:px-6 py-10"
+    >
+      <h1 className="text-3xl font-bold">Analytics</h1>
 
-      <p className="mt-2 text-gray-500">
-        How are you feeling today?
-      </p>
+      {entries.length === 0 ? (
+        <div className="card mt-10 p-10 text-center">
+          No data yet.
+        </div>
+      ) : (
+        <>
+          <div className="grid md:grid-cols-2 gap-6 mt-8">
+            <div className="card p-6">
+              <h2 className="mb-4 font-semibold">Mood Trend</h2>
+              <MoodChart entries={entries} />
+            </div>
 
-      <MoodSelector selected={mood} setSelected={setMood} />
+            <div className="card p-6">
+              <h2 className="mb-4 font-semibold">Activity</h2>
+              <CalendarHeatmap entries={entries} />
+            </div>
+          </div>
 
-      <JournalEditor mood={mood} addEntry={addEntry} />
-
-      <EntryList entries={entries} deleteEntry={deleteEntry} />
-    </div>
+          <div className="card p-6 mt-6">
+            <h2 className="font-semibold mb-3">Insights</h2>
+            {insights.map((i, idx) => (
+              <p key={idx} className="text-gray-500">
+                • {i}
+              </p>
+            ))}
+          </div>
+        </>
+      )}
+    </motion.div>
   );
 }

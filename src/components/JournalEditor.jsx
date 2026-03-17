@@ -22,15 +22,15 @@ export default function JournalEditor({ mood, addEntry }) {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900 shadow-xl rounded-xl p-6 mt-6">
+    <div className="card p-6 mt-6">
       <textarea
         placeholder="Write your thoughts..."
         value={text}
         onChange={(e) => setText(e.target.value)}
-        className="w-full p-4 border rounded-lg h-40"
+        className="input h-40 resize-none"
       />
 
-      <div className="flex justify-between mt-2 text-sm text-gray-500">
+      <div className="flex justify-between text-sm text-gray-400 mt-2">
         <span>{text.length} characters</span>
       </div>
 
@@ -38,13 +38,10 @@ export default function JournalEditor({ mood, addEntry }) {
         placeholder="tags (comma separated)"
         value={tags}
         onChange={(e) => setTags(e.target.value)}
-        className="mt-4 w-full p-2 border rounded"
+        className="input mt-4"
       />
 
-      <button
-        onClick={saveEntry}
-        className="mt-4 bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700"
-      >
+      <button onClick={saveEntry} className="button-primary mt-4">
         Save Entry
       </button>
     </div>

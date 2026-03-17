@@ -1,12 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* smoother UI */
+
+/* smooth UI */
 * {
   transition: all 0.2s ease-in-out;
 }
 
-/* nicer scroll */
 html {
   scroll-behavior: smooth;
+}
+
+/* reusable styles */
+.card {
+  @apply bg-white/70 dark:bg-gray-900/70 backdrop-blur border border-gray-200 dark:border-gray-800 rounded-2xl shadow-lg;
+}
+
+.input {
+  @apply w-full p-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-indigo-500 outline-none;
+}
+
+.button-primary {
+  @apply px-5 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow hover:scale-105 transition;
 }
