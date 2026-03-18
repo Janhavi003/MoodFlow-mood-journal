@@ -23,13 +23,12 @@ export default function MoodChart({ entries }) {
 
   return (
     <div className="h-64">
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer>
         <LineChart data={data}>
           <XAxis dataKey="date" hide />
           <YAxis domain={[1, 5]} hide />
           <Tooltip />
           <Line
-            type="monotone"
             dataKey="mood"
             stroke="#6366f1"
             strokeWidth={3}

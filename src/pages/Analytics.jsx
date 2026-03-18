@@ -1,10 +1,12 @@
 import MoodChart from "../components/MoodChart";
 import CalendarHeatmap from "../components/CalendarHeatmap";
 import { generateInsights } from "../utils/insights";
+import { getMoodPrediction } from "../utils/predictions";
 import { motion } from "framer-motion";
 
 export default function Analytics({ entries }) {
   const insights = generateInsights(entries);
+  const prediction = getMoodPrediction(entries);
 
   return (
     <motion.div
@@ -30,6 +32,11 @@ export default function Analytics({ entries }) {
               <h2 className="mb-4 font-semibold">Activity</h2>
               <CalendarHeatmap entries={entries} />
             </div>
+          </div>
+
+          <div className="card p-6 mt-6">
+            <h2 className="font-semibold mb-2">Prediction</h2>
+            <p className="text-indigo-500">{prediction}</p>
           </div>
 
           <div className="card p-6 mt-6">
