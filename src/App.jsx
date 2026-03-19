@@ -8,58 +8,38 @@ import {
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 
+import Navbar from "./components/Navbar";
+import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
 import Journal from "./pages/Journal";
 import Analytics from "./pages/Analytics";
-import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Navbar from "./components/Navbar";
 
 import useLocalStorage from "./hooks/useLocalStorage";
 import { getCurrentUser } from "./utils/auth";
 
-/* ---------------- Protected Route ---------------- */
 function ProtectedRoute({ children }) {
   const user = getCurrentUser();
-
-  if (!user) {
-    return <Navigate to="/login" />;
-  }
-
-  return children;
+  return user ? children : <Navigate to="/login" />;
 }
 
-/* ---------------- Animated Routes ---------------- */
-function AnimatedRoutes({
-  entries,
-  mood,
-  setMood,
-  addEntry,
-  deleteEntry,
-}) {
+function AnimatedRoutes(props) {
   const location = useLocation();
 
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        
-        {/* Public */}
+
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
-        {/* Protected */}
         <Route
           path="/dashboard"
           element={
             <ProtectedRoute>
-              <Dashboard
-                mood={mood}
-                setMood={setMood}
-                entries={entries}
-                addEntry={addEntry}
-              />
+              <Dashboard {...props} />
             </ProtectedRoute>
           }
         />
@@ -68,11 +48,7 @@ function AnimatedRoutes({
           path="/journal"
           element={
             <ProtectedRoute>
-              <Journal
-                entries={entries}
-                addEntry={addEntry}
-                deleteEntry={deleteEntry}
-              />
+              <Journal {...props} />
             </ProtectedRoute>
           }
         />
@@ -81,16 +57,16 @@ function AnimatedRoutes({
           path="/analytics"
           element={
             <ProtectedRoute>
-              <Analytics entries={entries} />
+              <Analytics entries={props.entries} />
             </ProtectedRoute>
           }
         />
+
       </Routes>
     </AnimatePresence>
   );
 }
 
-/* ---------------- MAIN APP ---------------- */
 export default function App() {
   const [entries, setEntries] = useLocalStorage("entries", []);
   const [mood, setMood] = useState("Happy");
@@ -105,8 +81,8 @@ export default function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-white">
-        
+      <div className="min-h-screen bg-gray-100 dark:bg-black text-gray-900 dark:text-white">
+
         <Navbar />
 
         <AnimatedRoutes

@@ -5,43 +5,42 @@ export default function JournalEditor({ mood, addEntry }) {
   const [text, setText] = useState("");
   const [tags, setTags] = useState("");
 
-  const saveEntry = () => {
+  const save = () => {
     if (!text) return;
 
-    const entry = {
+    addEntry({
       id: uuid(),
       date: new Date().toISOString(),
       mood,
       text,
       tags: tags.split(",").map((t) => t.trim()),
-    };
+    });
 
-    addEntry(entry);
     setText("");
     setTags("");
   };
 
   return (
-    <div className="card p-6 mt-6">
+    <div className="mt-6">
       <textarea
-        placeholder="Write your thoughts..."
+        className="input h-40 resize-none"
+        placeholder="Start writing your thoughts..."
         value={text}
         onChange={(e) => setText(e.target.value)}
-        className="input h-40 resize-none"
       />
 
-      <div className="flex justify-between text-sm text-gray-400 mt-2">
-        <span>{text.length} characters</span>
+      <div className="flex justify-between mt-2 text-sm text-gray-400">
+        {text.length} characters
       </div>
 
       <input
-        placeholder="tags (comma separated)"
+        className="input mt-3"
+        placeholder="tags..."
         value={tags}
         onChange={(e) => setTags(e.target.value)}
-        className="input mt-4"
       />
 
-      <button onClick={saveEntry} className="button-primary mt-4">
+      <button onClick={save} className="button-primary mt-4">
         Save Entry
       </button>
     </div>

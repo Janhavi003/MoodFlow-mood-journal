@@ -1,46 +1,48 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { v4 as uuid } from "uuid";
 
-export default function EntryCard({ entry, deleteEntry }) {
-  const [open, setOpen] = useState(false);
+export default function JournalEditor({ mood, addEntry }) {
+  const [text, setText] = useState("");
+  const [tags, setTags] = useState("");
+
+  const save = () => {
+    if (!text) return;
+
+    addEntry({
+      id: uuid(),
+      date: new Date().toISOString(),
+      mood,
+      text,
+      tags: tags.split(",").map((t) => t.trim()),
+    });
+
+    setText("");
+    setTags("");
+  };
 
   return (
-    <motion.div
-      className="bg-white dark:bg-gray-900 p-5 rounded-xl shadow"
-      whileHover={{ scale: 1.02 }}
-    >
-      <div className="flex justify-between">
-        <div>
-          <span className="text-xl">{entry.mood}</span>
-          <span className="ml-2 text-gray-500">
-            {new Date(entry.date).toDateString()}
-          </span>
-        </div>
+    <div className="mt-6">
+      <textarea
+        className="input h-40 resize-none"
+        placeholder="Start writing your thoughts..."
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
 
-        <button onClick={() => deleteEntry(entry.id)}>Delete</button>
+      <div className="flex justify-between mt-2 text-sm text-gray-400">
+        {text.length} characters
       </div>
 
-      <p className="mt-2">
-        {open ? entry.text : entry.text.substring(0, 100) + "..."}
-      </p>
+      <input
+        className="input mt-3"
+        placeholder="tags..."
+        value={tags}
+        onChange={(e) => setTags(e.target.value)}
+      />
 
-      <button
-        onClick={() => setOpen(!open)}
-        className="text-indigo-500 mt-2"
-      >
-        {open ? "Show less" : "Read more"}
+      <button onClick={save} className="button-primary mt-4">
+        Save Entry
       </button>
-
-      <div className="flex gap-2 mt-3">
-        {entry.tags.map((tag) => (
-          <span
-            key={tag}
-            className="text-xs bg-gray-200 px-2 py-1 rounded"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
-    </motion.div>
+    </div>
   );
 }

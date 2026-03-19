@@ -21,18 +21,27 @@ export default function MoodChart({ entries }) {
     mood: moodMap[e.mood],
   }));
 
+  if (!data.length) {
+    return (
+      <p className="text-gray-500 text-center">
+        No data yet — start journaling 📓
+      </p>
+    );
+  }
+
   return (
-    <div className="h-64">
+    <div className="h-72">
       <ResponsiveContainer>
         <LineChart data={data}>
-          <XAxis dataKey="date" hide />
-          <YAxis domain={[1, 5]} hide />
+          <XAxis dataKey="date" stroke="#888" />
+          <YAxis domain={[1, 5]} stroke="#888" />
           <Tooltip />
           <Line
+            type="monotone"
             dataKey="mood"
             stroke="#6366f1"
             strokeWidth={3}
-            dot={false}
+            dot={{ r: 4 }}
           />
         </LineChart>
       </ResponsiveContainer>

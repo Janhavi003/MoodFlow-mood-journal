@@ -3,113 +3,149 @@ import { motion } from "framer-motion";
 
 export default function Landing() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-100 dark:from-gray-950 dark:to-black text-gray-900 dark:text-white">
+    <div className="min-h-screen px-6">
 
       {/* HERO */}
-      <section className="text-center px-6 pt-24 pb-20 relative overflow-hidden">
+      <section className="text-center pt-32 pb-24 relative">
 
-        {/* Glow background */}
-        <div className="absolute inset-0 -z-10 flex justify-center">
-          <div className="w-[500px] h-[500px] bg-indigo-500 opacity-20 blur-3xl rounded-full"></div>
+        {/* Glow */}
+        <div className="absolute inset-0 flex justify-center -z-10">
+          <div className="w-[500px] h-[500px] bg-indigo-500/20 blur-3xl rounded-full"></div>
         </div>
 
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-5xl md:text-6xl font-bold leading-tight"
+          className="text-6xl font-bold leading-tight"
         >
-          Track Your Mood.
-          <br />
-          <span className="bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">
-            Understand Yourself.
-          </span>
+          Understand Your Mind.
         </motion.h1>
 
-        <p className="mt-6 text-lg text-gray-500 max-w-xl mx-auto">
-          A modern journaling experience to track emotions, reflect daily,
-          and discover meaningful insights about yourself.
+        <p className="mt-6 text-gray-400 max-w-xl mx-auto text-lg">
+          MoodJournal helps you track emotions, reflect daily, and discover patterns in your mental wellbeing.
         </p>
 
-        <div className="mt-8 flex justify-center gap-4">
-          <Link
-            to="/journal"
-            className="px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg hover:scale-105 transition"
-          >
-            Start Journaling →
+        <div className="mt-10 flex justify-center gap-4">
+          <Link to="/signup" className="button-primary px-8 py-3 text-lg">
+            Get Started Free
           </Link>
 
           <Link
-            to="/dashboard"
-            className="px-6 py-3 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+            to="/login"
+            className="px-8 py-3 border border-white/10 rounded-xl hover:bg-white/5"
           >
-            View Dashboard
+            Login
           </Link>
         </div>
       </section>
 
       {/* FEATURES */}
-      <section className="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-6">
+      <section className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6 py-16">
+
         {[
           {
             title: "Track Your Mood",
-            desc: "Log how you feel every day with intuitive emoji-based tracking.",
+            desc: "Log your emotions daily with a simple and intuitive interface.",
           },
           {
-            title: "Write & Reflect",
-            desc: "Capture your thoughts with a clean and distraction-free editor.",
+            title: "Gain Insights",
+            desc: "Understand patterns and trends in your mental wellbeing.",
           },
           {
-            title: "Visual Insights",
-            desc: "Understand patterns with powerful analytics and charts.",
+            title: "Build Habits",
+            desc: "Stay consistent and improve your emotional awareness.",
           },
-        ].map((feature, i) => (
+        ].map((item, i) => (
           <motion.div
             key={i}
             whileHover={{ scale: 1.04 }}
-            className="backdrop-blur bg-white/60 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-800 p-6 rounded-2xl shadow-lg"
+            className="card p-6"
           >
-            <h3 className="text-lg font-semibold">{feature.title}</h3>
-            <p className="text-gray-500 mt-2">{feature.desc}</p>
+            <h3 className="font-semibold text-lg">{item.title}</h3>
+            <p className="text-gray-400 mt-2">{item.desc}</p>
           </motion.div>
         ))}
       </section>
 
-      {/* PREVIEW SECTION */}
-      <section className="px-6 py-20 text-center">
+      {/* PRODUCT PREVIEW */}
+      <section className="text-center py-20">
+
         <h2 className="text-3xl font-bold">
           Simple. Clean. Powerful.
         </h2>
 
-        <p className="text-gray-500 mt-3">
-          Designed for clarity and focus.
+        <p className="text-gray-400 mt-3">
+          A distraction-free journaling experience.
         </p>
 
-        <div className="mt-10 max-w-4xl mx-auto bg-white/60 dark:bg-gray-900/60 backdrop-blur border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-10">
+        <div className="mt-10 max-w-4xl mx-auto card p-10">
           <p className="text-gray-500">
-            Beautiful journaling interface with mood tracking, analytics,
-            and a distraction-free experience.
+            Beautiful interface with mood tracking, insights, and analytics —
+            all in one place.
           </p>
         </div>
+
+      </section>
+
+      {/* WHY SECTION */}
+      <section className="max-w-5xl mx-auto py-20 text-center">
+
+        <h2 className="text-3xl font-bold">
+          Why MoodJournal?
+        </h2>
+
+        <p className="text-gray-400 mt-4 max-w-xl mx-auto">
+          Most people ignore their emotions. MoodJournal helps you understand them.
+        </p>
+
+        <div className="mt-10 grid md:grid-cols-3 gap-6">
+
+          <div className="card p-6">
+            <p className="text-lg">🧠</p>
+            <p className="mt-2 text-gray-400">
+              Improve self-awareness
+            </p>
+          </div>
+
+          <div className="card p-6">
+            <p className="text-lg">📈</p>
+            <p className="mt-2 text-gray-400">
+              Track emotional trends
+            </p>
+          </div>
+
+          <div className="card p-6">
+            <p className="text-lg">🔥</p>
+            <p className="mt-2 text-gray-400">
+              Build better habits
+            </p>
+          </div>
+
+        </div>
+
       </section>
 
       {/* CTA */}
-      <section className="text-center py-20 px-6">
+      <section className="text-center py-20">
+
         <h2 className="text-3xl font-bold">
-          Start your self-reflection journey today
+          Start your journey today
         </h2>
 
         <Link
-          to="/journal"
-          className="mt-6 inline-block px-8 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg hover:scale-105 transition"
+          to="/signup"
+          className="button-primary mt-6 inline-block px-10 py-3 text-lg"
         >
           Get Started Free
         </Link>
+
       </section>
 
       {/* FOOTER */}
-      <footer className="text-center py-10 text-gray-400 text-sm">
-        © {new Date().getFullYear()} MoodJournal — Built for self-growth
+      <footer className="text-center py-10 text-gray-500 text-sm">
+        © {new Date().getFullYear()} MoodJournal • Built with care
       </footer>
+
     </div>
   );
 }
